@@ -1,0 +1,34 @@
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+
+
+data = {
+    'Month': [1, 2, 3, 4, 5, 6],
+    'Sales': [100, 120, 140, 160, 180, 200]
+}
+
+df = pd.DataFrame(data)
+
+X = df[['Month']]
+y = df['Sales']
+
+
+model = LinearRegression()
+model.fit(X, y)
+
+
+next_month = [[7]]
+prediction = model.predict(next_month)
+
+print("Predicted Sales for Month 7:", round(prediction[0], 2))
+
+
+plt.scatter(df['Month'], df['Sales'], label='Historical Data')
+plt.plot(df['Month'], model.predict(X), label='Regression Line')
+plt.scatter(7, prediction[0], label='Prediction')
+plt.xlabel("Month")
+plt.ylabel("Sales")
+plt.title("Sales Prediction")
+plt.legend()
+plt.show()
